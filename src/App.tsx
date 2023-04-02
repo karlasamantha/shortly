@@ -3,17 +3,28 @@ import React from 'react'
 import request from './api/request'
 import Error from './components/Error'
 import Loading from './components/Loading'
-import { ShrtcodeResponse } from './types'
+import Links from './components/Links'
+import { ShrtcodeResultType } from './types'
 
-import './App.css'
+import './styles/App.css'
 
 function App() {
+  const [shortenedURLs, setShotenedURLs] = React.useState(() => {
+    const items = window.localStorage.getItem('shortened-urls')
+    const urls = items ? JSON.parse(items) : []
+    return urls
+  })
   const [query, setQuery] = React.useState<string>('')
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [error, setError] = React.useState<boolean>(false)
-  const [data, setData] = React.useState<undefined | ShrtcodeResponse>(
+  const [data, setData] = React.useState<undefined | ShrtcodeResultType>(
     undefined
   )
+
+  React.useEffect(() => {
+    const urls = JSON.stringify(shortenedURLs)
+    window.localStorage.setItem('shortened-urls', urls)
+  }, [shortenedURLs])
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
@@ -27,6 +38,9 @@ function App() {
       }
 
       setData(res.result)
+
+      const currentURL = [res.result]
+      setShotenedURLs([...shortenedURLs, ...currentURL])
     } catch (error) {
       setError(true)
     }
@@ -37,29 +51,31 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Shortly</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="url-input"></label>
         <input
           required
           type="text"
           id="url-input"
-          placeholder="Copy URL here"
+          placeholder="Enter URL here"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           disabled={isLoading}
+          minLength={4}
         />
+        <button>Shorten URL</button>
       </form>
 
       {isLoading && <Loading />}
 
       {data && (
         <>
-          <span>{data.full_share_link}</span>
-          <span>{data.full_short_link}</span>
-          <span>{data.share_link}</span>
-          <span>{data.short_link}</span>
+          <p>{data.full_share_link}</p>
+          <p>{data.original_link}</p>
         </>
       )}
+
+      {shortenedURLs && <Links urls={shortenedURLs} />}
 
       {error && <Error>Something went wrong</Error>}
     </div>
