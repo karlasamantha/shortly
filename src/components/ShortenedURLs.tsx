@@ -11,7 +11,7 @@ function ShortenedURLs({ urls }: ShortenedURLsProps) {
 
       <div className="links-container">
         {urlsSlice.map((url) => {
-          const slicedOriginalUrl = `${url.original_link.slice(0, 35)}...`
+          const slicedOriginalUrl = `${url?.original_link.slice(0, 35)}...`
 
           return (
             <ul key={url.code}>

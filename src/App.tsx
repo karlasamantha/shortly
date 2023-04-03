@@ -5,20 +5,20 @@ import Error from './components/Error'
 import Loading from './components/Loading'
 import CurrentURL from './components/CurrentURL'
 import ShortenedURLs from './components/ShortenedURLs'
-
 import { ShrtcodeResultType } from './types'
+import { getResultFromResponse, isErrorResponse } from './utils'
 
 import './styles/App.css'
 
 function App() {
-  const [shortenedURLs, setShotenedURLs] = React.useState(() => {
+  const [shortenedURLs, setShortenedURLs] = React.useState(() => {
     const items = window.localStorage.getItem('shortened-urls')
     const urls = items ? JSON.parse(items) : []
     return urls
   })
   const [query, setQuery] = React.useState<string>('')
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [error, setError] = React.useState<boolean>(false)
+  const [error, setError] = React.useState<undefined | string>(undefined)
   const [data, setData] = React.useState<undefined | ShrtcodeResultType>(
     undefined
   )
@@ -32,19 +32,26 @@ function App() {
     e.preventDefault()
 
     setIsLoading(true)
+    setError(undefined)
     try {
-      const res = await request(query)
+      const response = await request(query)
 
-      if (!res.ok) {
-        setError(true)
+      if (!response.ok && isErrorResponse(response)) {
+        setError(response.error)
       }
 
-      setData(res.result)
+      const result = getResultFromResponse(response)
 
-      const currentURL = [res.result]
-      setShotenedURLs([...shortenedURLs, ...currentURL])
-    } catch (error) {
-      setError(true)
+      setData(result)
+
+      const currentURL = [result]
+      const newUrls = [...shortenedURLs, ...currentURL].filter((item) => {
+        return item !== null && item !== undefined
+      })
+
+      setShortenedURLs(newUrls)
+    } catch (err) {
+      console.error(`Something went wrong: ${err}`)
     }
 
     setIsLoading(false)
@@ -70,6 +77,8 @@ function App() {
 
       {isLoading && <Loading />}
 
+      {error && <Error>{error}</Error>}
+
       {data && (
         <CurrentURL
           shortURL={data.full_short_link}
@@ -78,8 +87,6 @@ function App() {
       )}
 
       {shortenedURLs && <ShortenedURLs urls={shortenedURLs} />}
-
-      {error && <Error>Something went wrong</Error>}
     </div>
   )
 }

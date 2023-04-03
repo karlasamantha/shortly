@@ -14,6 +14,14 @@ export type ShrtcodeResponseType = {
   result: ShrtcodeResultType
 }
 
+export type ErrorResponseType = {
+  ok: boolean
+  error_code: number
+  error: string
+}
+
+export type APIResponseType = ShrtcodeResponseType | ErrorResponseType
+
 export interface ChildrenProps {
   children: string | JSX.Element
 }
