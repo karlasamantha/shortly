@@ -1,0 +1,37 @@
+.container {
+  margin: 0 auto;
+  padding: 16px;
+  border: 1px dashed hsl(250deg 100% 90%);
+  background: white;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px 3px white, 0px 1px 4px hsl(250deg 100% 40% / 0.25),
+    0px 2px 8px hsl(250deg 100% 40% / 0.125),
+    0px 4px 16px hsl(250deg 100% 40% / 0.05);
+
+  width: 100%;
+}
+
+.container span {
+  font-size: 12px;
+  display: block;
+  margin-top: 16px;
+}
+
+.container a {
+  line-break: anywhere;
+}
+
+.current-url {
+  display: flex;
+  gap: 6px;
+}
+
+.current-url > input[type=text] {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 450px;
+  }
+}
