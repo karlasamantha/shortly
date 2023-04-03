@@ -1,3 +1,30 @@
+/* Basic CSS Reset: Start */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* Basic CSS Reset: End */
+
+:root {
+  --purple: hsl(255, 64%, 60%);
+  --pastel: hsl(27, 43%, 96%);
+  --grey: hsl(0, 0%, 17%);
+
+  --spinner-size: 50px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +32,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  overflow-x: hidden;
+  background-color: var(--pastel);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}

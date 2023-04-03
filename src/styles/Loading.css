@@ -1,0 +1,24 @@
+.loading-container {
+  position: relative;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner::before {
+  content: '';
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border: 5px solid var(--pastel);
+  border-top-color: var(--purple);
+  border-radius: 50%;
+  animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+  to {
+      transform: rotate(1turn);
+  }
+}
