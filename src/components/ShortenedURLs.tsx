@@ -3,7 +3,7 @@ import { ShortenedURLsProps } from '../types'
 import '../styles/ShortenedURLs.css'
 
 function ShortenedURLs({ urls }: ShortenedURLsProps) {
-  const urlsSlice = urls.length >= 3 ? urls.slice(0, 3) : urls
+  const urlsSlice = urls.length >= 3 ? urls.slice(-3) : urls
 
   return (
     <div className="previous">
