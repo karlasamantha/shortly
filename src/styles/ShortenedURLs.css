@@ -1,0 +1,46 @@
+.previous {
+  display: flex;
+  flex-direction: column;
+  margin: 44px 0;
+}
+
+h2 {
+  margin-bottom: 12px;
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 8px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px 3px white, 0px 1px 4px hsl(250deg 100% 40% / 0.25);
+}
+
+ul li:nth-child(2),
+ul li:nth-child(2) > a {
+  font-size: 12px;
+}
+
+a {
+  color: var(--grey);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--purple);
+}
+
+
+@media screen and (min-width: 1440px) {
+  .links-container {
+    flex-direction: row;
+  }
+}

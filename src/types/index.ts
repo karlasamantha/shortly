@@ -21,3 +21,8 @@ export interface ChildrenProps {
 export interface ShortenedURLsProps {
   urls: [] | ShrtcodeResultType[]
 }
+
+export interface CurrentURLProps {
+  shortURL: string
+  originalURL: string
+}

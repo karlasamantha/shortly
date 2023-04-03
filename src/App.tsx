@@ -3,7 +3,9 @@ import React from 'react'
 import request from './api/request'
 import Error from './components/Error'
 import Loading from './components/Loading'
-import Links from './components/Links'
+import CurrentURL from './components/CurrentURL'
+import ShortenedURLs from './components/ShortenedURLs'
+
 import { ShrtcodeResultType } from './types'
 
 import './styles/App.css'
@@ -69,13 +71,13 @@ function App() {
       {isLoading && <Loading />}
 
       {data && (
-        <>
-          <p>{data.full_share_link}</p>
-          <p>{data.original_link}</p>
-        </>
+        <CurrentURL
+          shortURL={data.full_short_link}
+          originalURL={data.original_link}
+        />
       )}
 
-      {shortenedURLs && <Links urls={shortenedURLs} />}
+      {shortenedURLs && <ShortenedURLs urls={shortenedURLs} />}
 
       {error && <Error>Something went wrong</Error>}
     </div>
