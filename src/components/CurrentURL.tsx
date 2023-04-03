@@ -14,7 +14,7 @@ function CurrentURL({ shortURL, originalURL }: CurrentURLProps) {
   }
 
   return (
-    <div className="container">
+    <div className="container" data-testid="current">
       <div className="current-url">
         <input type="text" value={shortURL} readOnly />
         <button onClick={handleCopy}>

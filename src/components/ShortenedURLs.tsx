@@ -6,7 +6,7 @@ function ShortenedURLs({ urls }: ShortenedURLsProps) {
   const urlsSlice = urls.length >= 3 ? urls.slice(-3) : urls
 
   return (
-    <div className="previous">
+    <div className="previous" data-testid="previous-urls">
       <h2>Previous URLs</h2>
 
       <div className="links-container">
