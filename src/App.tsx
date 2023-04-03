@@ -86,7 +86,7 @@ function App() {
         />
       )}
 
-      {shortenedURLs && <ShortenedURLs urls={shortenedURLs} />}
+      {shortenedURLs.length !== 0 && <ShortenedURLs urls={shortenedURLs} />}
     </div>
   )
 }
