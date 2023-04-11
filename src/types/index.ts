@@ -10,12 +10,12 @@ export type ShrtcodeResultType = {
 }
 
 export type ShrtcodeResponseType = {
-  ok: boolean
+  ok: true
   result: ShrtcodeResultType
 }
 
 export type ErrorResponseType = {
-  ok: boolean
+  ok: false
   error_code: number
   error: string
 }

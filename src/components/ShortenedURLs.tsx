@@ -3,7 +3,7 @@ import { ShortenedURLsProps } from '../types'
 import '../styles/ShortenedURLs.css'
 
 function ShortenedURLs({ urls }: ShortenedURLsProps) {
-  const urlsSlice = urls.length >= 3 ? urls.slice(-3) : urls
+  const urlsSlice = urls.length > 3 ? urls.slice(-4, -1) : urls
 
   return (
     <div className="previous" data-testid="previous-urls">
@@ -29,4 +29,4 @@ function ShortenedURLs({ urls }: ShortenedURLsProps) {
   )
 }
 
-export default ShortenedURLs
+export default React.memo(ShortenedURLs)

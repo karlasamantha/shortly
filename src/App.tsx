@@ -50,12 +50,13 @@ function App() {
       })
 
       setShortenedURLs(newUrls)
+      setQuery('')
     } catch (err) {
+      setError(`Something went wrong: ${err}`)
       console.error(`Something went wrong: ${err}`)
     }
 
     setIsLoading(false)
-    setQuery('')
   }
 
   return (
@@ -72,7 +73,7 @@ function App() {
           disabled={isLoading}
           minLength={4}
         />
-        <button>Shorten URL</button>
+        <button disabled={isLoading}>Shorten URL</button>
       </form>
 
       {isLoading && <Loading />}
