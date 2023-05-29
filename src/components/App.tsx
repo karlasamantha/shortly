@@ -1,14 +1,14 @@
 import React from 'react'
 
-import request from './api/request'
-import Error from './components/Error'
-import Loading from './components/Loading'
-import CurrentURL from './components/CurrentURL'
-import ShortenedURLs from './components/ShortenedURLs'
-import { ShrtcodeResultType } from './types'
-import { getResultFromResponse, isErrorResponse } from './utils'
+import request from '../api/request'
+import Error from './Error'
+import CurrentURL from './CurrentURL'
+import ShortenedURLs from './ShortenedURLs'
+import { ShrtcodeResultType } from '../types'
+import { getResultFromResponse, isErrorResponse } from '../utils'
 
-import './styles/App.css'
+import '../styles/App.css'
+import Loading from './Loading'
 
 function App() {
   const [shortenedURLs, setShortenedURLs] = React.useState(() => {
@@ -59,10 +59,15 @@ function App() {
     setIsLoading(false)
   }
 
+  React.useEffect(() => {
+    const urls = JSON.stringify(shortenedURLs)
+    window.localStorage.setItem('shortened-urls', urls)
+  }, [shortenedURLs])
+
   return (
     <div className="App">
       <h1>Shortly</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={handleSubmit}>
         <input
           required
           type="text"
@@ -73,17 +78,17 @@ function App() {
           disabled={isLoading}
           minLength={4}
         />
-        <button disabled={isLoading}>Shorten URL</button>
+        <button disabled={isLoading}>
+          {isLoading ? <Loading /> : 'Shorten URL'}
+        </button>
       </form>
-
-      {isLoading && <Loading />}
 
       {error && <Error>{error}</Error>}
 
       {data && (
         <CurrentURL
-          shortURL={data.full_short_link}
-          originalURL={data.original_link}
+          shortURL={data?.full_short_link}
+          originalURL={data?.original_link}
         />
       )}
 

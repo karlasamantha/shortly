@@ -1,4 +1,5 @@
 import React from 'react'
+import { ReactComponent as Loader } from '../assets/loading.svg'
 import '../styles/Loading.css'
 
 function Loading() {
